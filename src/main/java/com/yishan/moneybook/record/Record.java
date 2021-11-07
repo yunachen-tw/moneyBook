@@ -1,9 +1,15 @@
 package com.yishan.moneybook.record;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class Record {
-    @NotNull(message = "id 不得為空值")
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     @NotNull(message = "花費尚未填寫")
     private Integer cost;
