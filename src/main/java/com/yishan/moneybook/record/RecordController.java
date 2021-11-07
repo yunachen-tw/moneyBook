@@ -1,7 +1,6 @@
 package com.yishan.moneybook.record;
 
 import java.net.URI;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -35,14 +34,9 @@ public class RecordController {
     // 取得{id}的紀錄
     @GetMapping("/{id}")
     public ResponseEntity<Record> getRecordById(@PathVariable("id") int id) {
-        boolean isExist = recordRepository.existsById(id);
-        if (isExist) {
-            Optional<Record> record = recordRepository.findById(id);
-            return ResponseEntity.ok().body(record.get());
-        } else {
-            // if no data, return 404 not found
-            return ResponseEntity.notFound().build();
-        }
+        return recordRepository.findById(id)
+                .map(cat -> ResponseEntity.ok().body(cat))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // 新增紀錄
