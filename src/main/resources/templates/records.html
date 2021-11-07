@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MoneyBook</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css" />
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1 class="text-center">MoneyBook</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="records: ${records}">
+                            <td th:text="${records.id}"></td>
+                            <td><a th:href="@{'/records/'+${records.id}}" th:text="${records.title}"></a></td>
+                            <td th:text="${records.cost}"></td>
+                            <td th:text="${records.date}"></td>
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="col"></div>
+        </div>
+      </div>
+</body>
+</html>
