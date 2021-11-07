@@ -26,7 +26,7 @@ public class RecordController {
     // 取得所有紀錄
     @GetMapping
     public ResponseEntity<Iterable<Record>> getRecordsAll() {
-        Iterable<Record> records = recordRepository.findAll();
+        Iterable<Record> records = recordRepository.findAllByOrderByDateAsc();
         return ResponseEntity.ok().body(records);
     }
 
