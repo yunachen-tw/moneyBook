@@ -20,7 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping(value = "/records", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RecordController {
-    // testing data list
     @Autowired
     RecordRepository recordRepository;
 
