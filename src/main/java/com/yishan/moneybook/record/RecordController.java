@@ -70,6 +70,7 @@ public class RecordController {
         // 檢查該筆資料 id 是否存在
         if (isExist) {
             Record record = new Record();
+            record.setId(id);
             record.setCost(request.getCost());
             record.setTitle(request.getTitle());
             record.setDate(request.getDate());

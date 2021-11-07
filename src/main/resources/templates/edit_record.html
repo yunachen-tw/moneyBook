@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MoneyBook</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css" />
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1 class="text-center">MoneyBook</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+              <form action="#" th:action="@{'/records/'+${record.id}}" method="post">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th scope="col"><label for="title" class="form-label">標題</label></th>
+                      <td><input type="text" class="form-control" id="title" th:field="${record.title}"></td>
+                    </tr>
+                    <tr>
+                      <th scope="col"><label for="cost" class="form-label">花費</label></th>
+                      <td><input type="text" class="form-control" id="cost" th:field="${record.cost}"></td>
+                    </tr>
+                    <tr>
+                      <th scope="col"><label for="date" class="form-label">日期</label></th>
+                      <td><input type="text" class="form-control" id="date" th:field="${record.date}"></td>
+                    </tr>
+                    <tr>
+                      <th scope="col"><label for="detail" class="form-label">詳細內容</label></th>
+                      <td><textarea class="form-control" id="detail" th:field="${record.detail}"></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              <div class="text-center">
+                <button type="subimt" class="btn btn-primary">Save</button>
+                <a th:href="@{/records}"><button type="button" class="btn btn-light">Cancel</button></a>
+              </div>
+            </div>
+            <div class="col"></div>
+        </div>
+      </div>
+</body>
+</html>
