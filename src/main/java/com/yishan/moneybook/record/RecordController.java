@@ -2,6 +2,7 @@ package com.yishan.moneybook.record;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -34,9 +35,14 @@ public class RecordController {
 
     // 取得所有紀錄
     @GetMapping
-    public ResponseEntity<Record> getRecordsAll() {
-        Record record = new Record();
-        return ResponseEntity.ok(record);
+    public ResponseEntity<List<Record>> getRecordsAll() {
+        List<Record> records = recordDB.stream().collect(Collectors.toList());
+        if (!records.isEmpty()) {
+            return ResponseEntity.ok().body(records);
+        } else {
+            // if no data, return 404 not found
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // 取得{id}的紀錄
