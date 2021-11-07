@@ -26,7 +26,7 @@ public class RecordController {
     // 取得所有紀錄
     @GetMapping
     public ResponseEntity<Iterable<Record>> getRecordsAll() {
-        Iterable<Record> records = recordRepository.findAll();
+        Iterable<Record> records = recordRepository.findAllByOrderByDateAsc();
         return ResponseEntity.ok().body(records);
     }
 
@@ -67,6 +67,7 @@ public class RecordController {
         // 檢查該筆資料 id 是否存在
         if (isExist) {
             Record record = new Record();
+            record.setId(id);
             record.setCost(request.getCost());
             record.setTitle(request.getTitle());
             record.setDate(request.getDate());
