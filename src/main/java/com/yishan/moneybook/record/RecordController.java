@@ -93,8 +93,21 @@ public class RecordController {
     // 修改{id}的紀錄
     @PutMapping("/{id}")
     public ResponseEntity<Record> editRecord(@Valid @PathVariable("id") int id, @RequestBody Record request) {
-        Record record = new Record();
-        return ResponseEntity.ok(record);
+        Optional<Record> recordOptional = recordDB.stream().filter(record -> record.getId().equals(id)).findFirst();
+
+        // 檢查該筆資料 id 是否存在
+        if (recordOptional.isPresent()) {
+            Record record = recordOptional.get();
+            record.setCost(request.getCost());
+            record.setTitle(request.getTitle());
+            record.setDate(request.getDate());
+            record.setDetail(request.getDetail());
+
+            return ResponseEntity.ok().body(record);
+        } else {
+            // 若資料不存在則 return 404 not found
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // 刪除{id}的紀錄
