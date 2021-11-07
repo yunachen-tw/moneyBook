@@ -1,5 +1,6 @@
 package com.yishan.moneybook.record;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/records", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,8 +65,29 @@ public class RecordController {
     // 新增紀錄
     @PostMapping
     public ResponseEntity<Record> addRecord(@Valid @RequestBody Record request) {
+        boolean isIdDuplicated = recordDB.stream().anyMatch(record -> record.getId().equals(request.getId()));
+        // 相同 id 不能重複新增
+        if (isIdDuplicated) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
+
         Record record = new Record();
-        return ResponseEntity.ok(record);
+        record.setId(request.getId());
+        record.setCost(request.getCost());
+        record.setTitle(request.getTitle());
+        record.setDate(request.getDate());
+        record.setDetail(request.getDetail());
+        recordDB.add(record);
+
+        // 建立 URI 指向這次新增的資源
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(record.getId())
+                .toUri();
+
+        // 新增完成 return 201 created
+        return ResponseEntity.created(location).body(record);
     }
 
     // 修改{id}的紀錄
