@@ -2,6 +2,7 @@ package com.yishan.moneybook.record;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -48,8 +49,14 @@ public class RecordController {
     // 取得{id}的紀錄
     @GetMapping("/{id}")
     public ResponseEntity<Record> getRecordById(@PathVariable("id") int id) {
-        Record record = new Record();
-        return ResponseEntity.ok(record);
+        Optional<Record> recordOptional = recordDB.stream().filter(record -> record.getId().equals(id)).findFirst();
+        if (recordOptional.isPresent()) {
+            Record record = recordOptional.get();
+            return ResponseEntity.ok().body(record);
+        } else {
+            // if no data, return 404 not found
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // 新增紀錄
