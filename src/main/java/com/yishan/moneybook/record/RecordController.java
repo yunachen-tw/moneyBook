@@ -112,9 +112,16 @@ public class RecordController {
 
     // 刪除{id}的紀錄
     @DeleteMapping("/{id}")
-    public ResponseEntity<Record> deleteRecord(@RequestBody Record request) {
-        Record record = new Record();
-        return ResponseEntity.ok(record);
+    public ResponseEntity<Record> deleteRecord(@PathVariable("id") int id) {
+        Optional<Record> recordOptional = recordDB.stream().filter(record -> record.getId().equals(id)).findFirst();
+        if (recordOptional.isPresent()) {
+            recordDB.removeIf(record -> record.getId().equals(id));
+            // 刪除成功 return 204 no content
+            return ResponseEntity.noContent().build();
+        } else {
+            // 若資料不存在則 return 404 not found
+            return ResponseEntity.notFound().build();
+        }
     }
 
     
