@@ -1,8 +1,8 @@
 package com.yishan.moneybook.record;
 
 public class Record {
-    private int id;
-    private int cost;
+    private Integer id;
+    private Integer cost;
     private String title;
     private String date;
     private String detail;
@@ -11,7 +11,7 @@ public class Record {
 
     }
 
-    public Record(int id, int cost, String title, String date, String detail) {
+    public Record(Integer id, Integer cost, String title, String date, String detail) {
         this.id = id;
         this.cost = cost;
         this.title = title;
@@ -19,19 +19,19 @@ public class Record {
         this.detail = detail;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
 
