@@ -34,7 +34,7 @@ public class RecordController {
     @GetMapping("/{id}")
     public ResponseEntity<Record> getRecordById(@PathVariable("id") int id) {
         return recordRepository.findById(id)
-                .map(cat -> ResponseEntity.ok().body(cat))
+                .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
     }
 
