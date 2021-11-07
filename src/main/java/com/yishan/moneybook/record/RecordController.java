@@ -1,5 +1,7 @@
 package com.yishan.moneybook.record;
 
+import javax.validation.Valid;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,14 +33,14 @@ public class RecordController {
 
     // 新增紀錄
     @PostMapping
-    public ResponseEntity<Record> addRecord(@RequestBody Record request) {
+    public ResponseEntity<Record> addRecord(@Valid @RequestBody Record request) {
         Record record = new Record();
         return ResponseEntity.ok(record);
     }
 
     // 修改{id}的紀錄
     @PutMapping("/{id}")
-    public ResponseEntity<Record> editRecord(@PathVariable("id") int id, @RequestBody Record request) {
+    public ResponseEntity<Record> editRecord(@Valid @PathVariable("id") int id, @RequestBody Record request) {
         Record record = new Record();
         return ResponseEntity.ok(record);
     }
